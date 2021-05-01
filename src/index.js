@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Discord = require('discord.js')
 const dotenv = require('dotenv')
 const { startListening, stopListening } = require('./actions')
@@ -9,7 +10,6 @@ dotenv.config()
 const client = new Discord.Client()
 
 client.once('ready', () => {
-  // eslint-disable-next-line no-console
   console.log('Ready.')
 })
 
@@ -37,9 +37,7 @@ client.on('message', (message) => {
   if (message.author.id === dadUserId) {
     message.react(dadEmoji)
   }
-  // eslint-disable-next-line no-console
   console.log(`${message.author.username}: ${message.content}`)
-  // eslint-disable-next-line no-console
   console.log(`Listening: ${dataStore.getState().isListening}`)
 })
 

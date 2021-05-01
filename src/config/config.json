@@ -3,5 +3,8 @@
   "dadUserId": "275121994738171915",
   "dadEmoji": "😃",
   "olddadEmoji": "<:dad:824060210015371264>",
-  "guildId": "725470620690939949"
+  "guildId": "725470620690939949",
+  "speakingTimeMS": 2000,
+  "audioLink": "/audio/theme.mp3",
+  "quietTimeMS": 120000
 }

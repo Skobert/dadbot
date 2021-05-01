@@ -15,9 +15,11 @@
     "build": "webpack"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.5.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ffmpeg-static": "^4.3.0"
   },
   "devDependencies": {
     "eslint": "^7.25.0",

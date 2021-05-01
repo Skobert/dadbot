@@ -1,13 +1,16 @@
-let botState = {
+const botState = {
   isListening: false,
   targetUser: null,
   voiceChannel: null,
   guildId: null,
   voiceConnection: null,
-}
 
-function updateState(state) {
-  botState = state
+  listenData: {
+    speaking: false,
+    startedTS: null,
+    lastPlayTS: null,
+    respectQuietTime: false,
+  },
 }
 
 function getState() {
@@ -30,9 +33,27 @@ function stopListening() {
   botState.isListening = false
 }
 
+function listenTrigger() {
+  botState.listenData.speaking = true
+  botState.listenData.startedTS = Date.now()
+}
+
+function listenStop() {
+  botState.listenData.speaking = false
+  botState.listenData.startedTS = null
+  botState.listenData.lastPlayTS = null
+}
+
+function enableQuiet() {
+  botState.listenData.respectQuietTime = true
+  botState.listenData.lastPlayTS = Date.now()
+}
+
 module.exports = {
-  updateState,
   getState,
   startListening,
   stopListening,
+  listenTrigger,
+  listenStop,
+  enableQuiet,
 }

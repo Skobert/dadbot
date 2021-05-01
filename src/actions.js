@@ -1,4 +1,7 @@
 /* eslint-disable no-console */
+const path = require('path')
+const config = require('./config/config.json')
+
 const dataStore = require('./datastore')
 // const config = require('./config/config.json')
 
@@ -7,10 +10,27 @@ const voiceStateChange = (member, speaking) => {
   if (member.id !== state.targetUser.id) return
 
   if (speaking.has('SPEAKING')) {
-    console.log('I can now hear the user speaking :)')
-  }
+    console.log(`${member.user.username} has started speaking`)
 
-  console.log('no console log warnings')
+    dataStore.listenTrigger()
+  } else {
+    console.log(`${member.user.username} has finally shut up`)
+
+    console.log(`Quiet? ${state.listenData.respectQuietTime}; last play: ${Date.now() - state.listenData.startedTS}`)
+    if (state.listenData.respectQuietTime
+      && Date.now() - state.listenData.lastPlayTS < config.quietTimeMS) return
+
+    if (Date.now() - state.listenData.startedTS >= config.speakingTimeMS) {
+      console.log('SICK DAD JOKE BRO')
+      const dispatch = state.voiceConnection.play(
+        path.join(__dirname, config.audioLink), { volume: 0.1 },
+      )
+      dispatch.on('start', () => {
+        console.log('playing audio')
+      })
+      dataStore.enableQuiet()
+    }
+  }
 }
 
 // const channelChange = () => {
@@ -35,6 +55,7 @@ function startListening(client, guild, user) {
   console.info(`joining channel ${user.voice.channel.name}`)
   user.voice.channel.join()
     .then((connection) => {
+      connection.setSpeaking(0)
       dataStore.startListening(user, guild.id, user.voice.channel, connection)
 
       client.on('guildMemberSpeaking', voiceStateChange)
