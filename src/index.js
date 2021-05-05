@@ -6,6 +6,8 @@ const { dadUserId, dadEmoji, guildId } = require('./config/config.json')
 const dataStore = require('./datastore')
 // const config = require('./config/config.json')
 
+/* EVIL LINE THAT HACKS CRYSIS DISCORD */
+
 dotenv.config()
 const client = new Discord.Client()
 
