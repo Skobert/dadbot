@@ -1,10 +1,10 @@
 {
   "prefix": ".",
-  "dadUserId": "275121994738171915",
-  "dadEmoji": "😃",
-  "olddadEmoji": "<:dad:824060210015371264>",
-  "guildId": "725470620690939949",
+  "dadUserId": "200796194325135370",
+  "olddadEmoji": "😃",
+  "dadEmoji": "<:dad:824060210015371264>",
+  "guildId": "223211257077956618",
   "speakingTimeMS": 2000,
   "audioLink": "/audio/theme.mp3",
-  "quietTimeMS": 120000
+  "quietTimeMS": 60000
 }

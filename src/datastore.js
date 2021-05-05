@@ -6,7 +6,6 @@ const botState = {
   voiceConnection: null,
 
   listenData: {
-    speaking: false,
     startedTS: null,
     lastPlayTS: null,
     respectQuietTime: false,
@@ -31,17 +30,14 @@ function stopListening() {
   botState.voiceChannel = null
   botState.voiceConnection = null
   botState.isListening = false
+
+  botState.listenData.startedTS = null
+  botState.listenData.lastPlayTS = null
+  botState.listenData.respectQuietTime = false
 }
 
 function listenTrigger() {
-  botState.listenData.speaking = true
   botState.listenData.startedTS = Date.now()
-}
-
-function listenStop() {
-  botState.listenData.speaking = false
-  botState.listenData.startedTS = null
-  botState.listenData.lastPlayTS = null
 }
 
 function enableQuiet() {
@@ -54,6 +50,5 @@ module.exports = {
   startListening,
   stopListening,
   listenTrigger,
-  listenStop,
   enableQuiet,
 }

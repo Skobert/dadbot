@@ -30,7 +30,7 @@ client.on('message', (message) => {
             }).catch(console.error)
         }).catch(console.error)
     } else if (parsedMsg === 'stop dad') {
-      stopListening()
+      stopListening(client)
     }
   }
 

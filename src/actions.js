@@ -33,9 +33,14 @@ const voiceStateChange = (member, speaking) => {
   }
 }
 
-// const channelChange = () => {
-//   console.log('no console log warnings')
-// }
+const channelChange = (oldVState, newVState) => {
+  if (newVState.channel !== null) {
+    newVState.channel.join()
+  //  } else {
+  //    const s = dataStore.getState()
+  //    s.voiceChannel.leave()
+  }
+}
 
 function startListening(client, guild, user) {
   const s = dataStore.getState()
@@ -55,24 +60,22 @@ function startListening(client, guild, user) {
   console.info(`joining channel ${user.voice.channel.name}`)
   user.voice.channel.join()
     .then((connection) => {
-      connection.setSpeaking(0)
       dataStore.startListening(user, guild.id, user.voice.channel, connection)
 
       client.on('guildMemberSpeaking', voiceStateChange)
+      client.on('voiceStateUpdate', channelChange)
     })
     .catch(console.error)
 }
 
 function stopListening(client) {
-  const s = dataStore.getState()
-
-  if (!s.isListening) return
-
   client.removeListener('guildMemberSpeaking', voiceStateChange)
+  client.removeListener('voiceStateUpdate', channelChange)
 
-  s.stopListening()
-
-  console.info('stopped listening')
+  const s = dataStore.getState()
+  s.voiceChannel.leave()
+  dataStore.stopListening()
+  console.log('stopped listening')
 }
 
 module.exports = { startListening, stopListening }
